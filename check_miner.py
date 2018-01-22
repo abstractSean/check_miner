@@ -1,6 +1,7 @@
-#!/home/sean/Envs/check_miner/bin/python
+#!/home/sean/virtualenvs/check_miner/bin/python
 
 import os
+import sys
 from requests import Session
 from datetime import datetime
 from dotenv import find_dotenv, load_dotenv
@@ -24,15 +25,16 @@ def get_last_seen_time(miner_address=my_miner_address):
 def get_last_seen_minutes(last_seen_time):
     return int(round((datetime.now() - last_seen_time).seconds/60))
 
-def main():
+def main(threshold_mins=30):
     last_seen = get_last_seen_time()
     last_seen_minutes = get_last_seen_minutes(last_seen)
     print('Last seen time: {}'.format(last_seen))
     print('Miner last seen {} minutes ago.'.format(last_seen_minutes))
-    if last_seen_minutes > 30:
+    if last_seen_minutes > threshold_mins:
         send_sms('Miner last seen {} minutes ago.'.format(last_seen_minutes))
 
 if __name__ == '__main__':
-    main()
-
-
+    try:
+        main(int(sys.argv[1]))
+    except IndexError:
+        main()

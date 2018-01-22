@@ -1,4 +1,4 @@
-#!/home/sean/Envs/check_miner/bin/python
+#!/home/sean/virtualenvs/check_miner/bin/python
 import os
 import sys
 from dotenv import find_dotenv, load_dotenv
@@ -20,4 +20,8 @@ def send_sms(message='Hello!'):
 
 
 if __name__=="__main__":
-    send_sms(sys.argv[1])
+    try:   
+        send_sms(sys.argv[1])
+    except IndexError:
+        send_sms()
+        send_sms()
