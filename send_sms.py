@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
+#!/home/sean/Envs/check_miner/bin/python
 import os
+import sys
 from dotenv import find_dotenv, load_dotenv
 from twilio.rest import Client
 
@@ -18,3 +19,5 @@ def send_sms(message='Hello!'):
                            body=message)
 
 
+if __name__=="__main__":
+    send_sms(sys.argv[1])
