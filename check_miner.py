@@ -1,3 +1,5 @@
+#!/home/sean/Envs/check_miner/bin/python
+
 from requests import Session
 from datetime import datetime
 from send_sms import send_sms
