@@ -1,17 +1,25 @@
 #!/home/sean/Envs/check_miner/bin/python
 
+import os
 from requests import Session
 from datetime import datetime
+from dotenv import find_dotenv, load_dotenv
 from send_sms import send_sms
 
-def get_last_seen_time(miner_address='b9562a99dcfd11164a8e9b125dddc9867b035b9b'):
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+my_miner_address = os.environ.get('MINER_ADDRESS')
+
+
+def get_last_seen_time(miner_address=my_miner_address):
     ehtermine_api_url = 'https://api.ethermine.org/'
     miner_status_query = 'https://api.ethermine.org/miner/{}/workers/monitor'.format(miner_address)
 
     with Session() as r:
         last_seen = r.get(url=miner_status_query).json()['data'][0]['lastSeen']
 
-    return datetime.fromtimestamp(int(last_seen))#.strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.fromtimestamp(last_seen)
 
 def get_last_seen_minutes(last_seen_time):
     return int(round((datetime.now() - last_seen_time).seconds/60))
