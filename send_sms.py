@@ -24,4 +24,3 @@ if __name__=="__main__":
         send_sms(sys.argv[1])
     except IndexError:
         send_sms()
-        send_sms()
