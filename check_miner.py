@@ -5,7 +5,7 @@ import sys
 from requests import Session
 from datetime import datetime
 from dotenv import find_dotenv, load_dotenv
-from send_sms import send_sms
+from send_hangouts import send_hangouts
 
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
@@ -31,7 +31,9 @@ def main(threshold_mins=30):
     print('Last seen time: {}'.format(last_seen))
     print('Miner last seen {} minutes ago.'.format(last_seen_minutes))
     if last_seen_minutes > threshold_mins:
-        send_sms('Miner last seen {} minutes ago.'.format(last_seen_minutes))
+        send_hangouts(
+            f'Miner last seen {last_seen_minutes} minutes ago.'
+        )
 
 if __name__ == '__main__':
     try:
