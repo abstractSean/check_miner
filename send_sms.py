@@ -20,7 +20,7 @@ def send_sms(message='Hello!'):
 
 
 if __name__=="__main__":
-    try:   
+    try:
         send_sms(sys.argv[1])
     except IndexError:
         send_sms()
